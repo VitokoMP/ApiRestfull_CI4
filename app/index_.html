@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <title>Indicador de UF </title>
+  </head>
+  <body>
+    <br>
+    <section class= "crud">
+        <article>
+            <div class ="col-12">
+                <div class="card">
+                        <div class="card-header">
+                        <h2 class ="crud-title">    Consumir Api Rest Ajax </h2>
+                        <button class= "btn btn-primary" style="text-align:center" onclick="getMetodo()"> Listar</button>
+                        
+                        </div>
+
+                            <form class ="crud-form">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class= "col-3">                                 
+                                            <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control" placeholder="Id">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class= "col-3">                                 
+                                            <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control" placeholder="fecha">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <div class= "col-3">                                 
+                                        <div class="row">
+                                                <div class="col">
+                                                <input type="text" class="form-control" placeholder="valor">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class= "col-3">
+                                        <div class= "row">
+                                        <button class= "btn btn-success" style="text-align:center"> Insertar</button>
+                                        <input type ="hidden" name = "id">
+                                        </div>                                                                                        
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section>
+    <article>
+            <div class ="col-12">
+                <div class="card">
+                        <div class="card-header">
+                        <h2 class ="crud-title">Mantenedor API-Ajax </h2>
+                        </div>
+                                <div class="card-body col-10">
+                                <table class="crud-table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                            <th scope="col" class="col-1">#</th>
+                                            <th scope="col" class="col-3">Fecha</th>
+                                            <th scope="col" class="col-2">Valor</th>
+                                            <th scope="col" class="col-4">Accion</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>
+                                                <button class= "btn btn-danger" style="text-align:center"> Actualizar</button>
+                                                <button class= "btn btn-warning" style="text-align:center"> Eliminar</button></td>
+                                            </tr>
+                                        </tbody>  
+                                        </table>
+
+                                </div>
+                </div>
+            </div>
+        </article>
+    </section>
+  
+    <script>
+        const d = document,
+        $table =d.querySelector(".crud-table"),
+        $form = d.querySelector(".crud-form"),
+        $title = d.querySelector(",crud-title"),
+        $template = d.getElementById("crud-template").content,
+        $fragment = d.createDocumentFragment();
+
+        const ajax = (options) =>{
+            let{url,method,success,error,data} = options;
+            const xhr = new XMLHttpRequest();
+            /* PROGRAMAMOS EL LISTENER*/
+
+            xhr.addEventListener("readystatechange",e => {
+                    /**/    
+                    if(xhr.readyState !== 4) return;
+                    
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        
+                        /* La  respuesta la convertimos a objeto javascript nuestro JSON*/
+                        let json = JSON.parse(xhr.responseText);
+
+                        /* Entregamos el Objeto Succes*/        
+                        success(JSON);    
+                    }else{
+                        let message = xhr.statusText || "ocurrio un error";
+                        error('Error ${xhr.status}: ${message}');}
+            });
+
+            xhr.open(method || "GET", url);
+            xhr.setRequestHeader("content-type","aplplication/json; charset=utf-8");
+            xhr.send(JSON.stringify(data));
+        }
+
+        const getAllData = () =>{
+            ajax ({
+                    method: "GET",
+                    url: "https://mindicador.cl/api",
+                    success: (res) => {},
+                    error: (err) => {},
+                    data: null
+            })
+        }
+        d.addEventListener("DOMContentLoaded",getAllData);
+    </script>
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    </body> 
+</html> 

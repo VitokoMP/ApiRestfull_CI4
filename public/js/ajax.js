@@ -1,0 +1,2 @@
+/** Creaacion de variables JS**/
+
